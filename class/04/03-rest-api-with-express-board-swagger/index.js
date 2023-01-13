@@ -1,10 +1,14 @@
 import express from 'express'
 import { checkValidationPhone, getToken, sendTokenToSMS } from './phone.js'
+import swaggerUi from 'swagger-ui-express'
+import swaggerJsdoc from 'swagger-jsdoc'
+import { options } from './swagger/config.js'
 
 //const express = require('express')
 const app = express()
 const port = 3000
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(options)));
 app.use(express.json())
 
 app.get('/boards', (req, res) => {
