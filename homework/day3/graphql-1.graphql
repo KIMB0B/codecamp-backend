@@ -1,0 +1,172 @@
+1) 철수의 나이는 몇살인가요?(나이만 조회해 주세요.)
+query{
+  fetchProfile(name:"철수"){
+    age
+  }
+}
+
+2) 영희의 학교는 어디인가요?(학교만 조회해 주세요.)
+query{
+  fetchProfile(name:"영희"){
+    school
+  }
+}
+
+3) 3번 게시글의 내용과 작성일이 무엇인가요?(내용과 작성일만 조회해 주세요.)
+query{
+  fetchBoard(number:3){
+    contents
+    createdAt
+  }
+}
+
+4) 본인의 이름으로 프로필을 작성해 보세요.
+mutation{
+  createProfile(name:"jwkim", age:26, school:"Inhatc"){
+    message
+  }
+}
+
+5) 본인의 이름으로 게시글을 작성해 보세요.
+mutation{
+  createBoard(writer:"jwkim", title:"tt", contents:"cc"){
+    number
+    message
+  }
+}
+
+6) 자신의 프로필을 조회해 보세요.
+query{
+  fetchProfile(name:"jwkim"){
+    number
+    name
+    age
+    school
+  }
+}
+
+7) 자신의 게시글을 조회해 보세요.
+query{
+  fetchBoard(number:12109){
+    number
+    writer
+    title
+    contents
+    createdAt
+  }
+}
+
+8) 본인의 프로필에서, 학교를 자신이 졸업한 초등학교로 바꿔보세요.
+mutation{
+  updateProfile(name:"jwkim", school:"simwon"){
+    message
+  }
+}
+
+9) 본인의 게시글에서, 제목과 내용을 바꿔보세요.
+mutation{
+  updateBoard(number:12109, title:"updatett", contents:"updatecc"){
+    number
+    message
+  }
+}
+
+10) 자신이 좋아하는 만화 주인공으로 프로필을 작성해 보세요.
+mutation{
+  createProfile(name:"루피", age:156, school:"사우전드서니호"){
+    message
+  }
+}
+
+11) 위 10번에서 작성한 프로필을 삭제해 보세요.
+mutation{
+  deleteProfile(name:"루피"){
+    message
+  }
+}
+
+12) 상품을 하나 만들어 보세요.
+mutation{
+  createProduct(
+    seller:"jwkim", 
+    createProductInput:{
+    	name:"Ipad", 
+      price:1500000
+      detail:"아이패드"
+  	}
+  ){
+    _id
+    message
+  }
+}
+
+13) 위 12번에서 만들었던 상품의 가격을 500원 인상해 보세요.
+mutation{
+  updateProduct(productId:"21955a5d-e02e-41cd-94f8-8dbd745c6265", updateProductInput:{price:1500500}){
+    _id
+    message
+  }
+}
+
+14) 위에서 만든 상품을 조회하되, 가격만 조회해 보세요.
+query{
+  fetchProduct(productId:"21955a5d-e02e-41cd-94f8-8dbd745c6265"){
+    price
+  }
+}
+
+15) 조회했던 상품을 삭제해 보세요.
+mutation{
+  deleteProduct(productId:"21955a5d-e02e-41cd-94f8-8dbd745c6265"){
+    _id
+    message
+  }
+}
+
+16) 삭제한 상품이 정말로 삭제되었는지 다시 한번 조회해 보세요.
+query{
+  fetchProduct(productId:"21955a5d-e02e-41cd-94f8-8dbd745c6265"){
+    _id
+    name
+    price
+    seller
+    detail
+    createdAt
+  }
+}
+
+17) 게시물 목록 중, 2페이지를 조회해 보세요.
+query{
+  fetchBoards(page:2){
+    like
+    title
+    number
+    writer
+    contents
+    createdAt
+  }
+}
+
+18) 게시물 목록을 조회할 때, page를 입력하지 않으면, 어떤 결과가 발생하는지 확인해 보세요.
+		(Hint : syntax error는 아닙니다.)
+query{
+  fetchBoards{
+    like
+    title
+    number
+    writer
+    contents
+    createdAt
+  }
+}
+(1페이지의 결과 출력)
+
+19) 프로필이 전체 몇 개가 있는지 확인해 보세요.
+query{
+  fetchProfilesCount
+}
+
+20) 게시물은 몇 개가 있는지 조회해보세요.
+query{
+  fetchBoardsCount
+}
