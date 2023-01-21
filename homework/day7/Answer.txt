@@ -1,0 +1,15 @@
+1-1. build docker .
+1-2. docker images
+2-1. docker run 2e7a05ce7683
+2-2. docker ps -a
+2-3. docker stop
+2-4. docker rm 
+2-5. docker rmi
+3-1. http://localhost:3000/boards
+3-2. docker run -p 2000:3000 2e7a05ce7683 
+3-3. docker run -p 2000:8000 2e7a05ce7683 
+4-1. docker exec -it 2bd25dc4230a bin/bash
+4-2. No
+4-3. No
+서술식) 왼쪽 Dockerfile은 모든 파일들을 다 COPY하고 yarn install을 진행하기 때문에 작은 소스코드의 수정에도 cache데이터를 받지 못하고 새로 build하게 되어서 더 느림.
+        오른쪽 Dockerfile은 yarn install에 필요한 package.json과 yarn.lock을 먼저 가져오고 yarn install 후 모든 파일들을 COPY하기 때문에 소스코드가 수정되어도 yarn install이 된 부분까지는 cache데이터에서 받아서 build되어 더 빠름.
