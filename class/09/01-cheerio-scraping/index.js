@@ -20,14 +20,14 @@ function createBoardAPI(htmls) {
     const openGraphs = {};
 
     htmls.forEach((value, index) => {
-        const openGraph = {};
+        const og = {};
         const $ = cheerio.load(value);
 
         $("meta").each((_, el) => {
             if ($(el).attr("property")) {
                 const key = $(el).attr("property").split(":")[1];
                 const value = $(el).attr("content");
-                openGraph[key] = value;
+                og[key] = value;
             }
         });
         openGraphs[index] = openGraph;

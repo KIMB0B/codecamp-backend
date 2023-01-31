@@ -1,0 +1,46 @@
+paths:
+    users/:
+        get:
+            summary: 사용자 목록 가져오기
+            parameters:
+                - in: query
+                  name: number
+                  type: int
+            responses:
+                200:
+                    description: 성공
+                    content:
+                        application/json:
+                            type: array
+                            schema:
+                                items:
+                                    properties:
+                                        _id:
+                                            type: string
+                                            example: aaa
+                                        name:
+                                            type: string
+                                            example: 홍길동
+                                        email:
+                                            type: string
+                                            example: honggildong@naver.com
+                                        personal:
+                                            type: string
+                                            example: 123456-*******
+                                        prefer:
+                                            type: string
+                                            example: https://www.naver.com
+                                        pwd:
+                                            type: string
+                                            example: honggildong1!
+                                        phone:
+                                            type: string
+                                            example: "01015771577"
+                                        og:
+                                            type: object
+                                            example:
+                                                {
+                                                    "title": "네이버",
+                                                    "description": "설명",
+                                                    "image": "이미지",
+                                                }
