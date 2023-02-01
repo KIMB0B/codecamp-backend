@@ -10,6 +10,7 @@ import {
     setTokenInDB,
     isAuthPhone,
     checkToken,
+    sendTokenToSMS,
 } from "./phone.js";
 import { checkValidationEmail, sendWelcomeTemplateToEmail } from "./email.js";
 import { makeOG, secure } from "./users.js";
@@ -79,7 +80,7 @@ app.post("/tokens/phone", async (req, res) => {
                 console.log(
                     `✅: [${phoneArray[0]}-${phoneArray[1]}-${phoneArray[2]}]의 Tokens DB 저장에 성공했습니다.`
                 );
-                // sendTokenToSMS(phone, token);
+                sendTokenToSMS(phone, token);
                 console.log(
                     `✅: [${phoneArray[0]}-${phoneArray[1]}-${phoneArray[2]}] 번호로 인증번호 '${token}'이 전송되었습니다.`
                 );
@@ -108,4 +109,8 @@ app.patch("/tokens/phone", async (req, res) => {
         console.log(`✅: [${phone}] 번호가 인증되었습니다.`);
         res.send(phone);
     }
+});
+
+app.get("/starbucks", async (req, res) => {
+    res.send(await StarbucksCollection.find());
 });
