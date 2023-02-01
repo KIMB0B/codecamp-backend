@@ -40,7 +40,8 @@ app.post("/users", async (req, res) => {
     const newUser = req.body.newUser;
     if ((await isAuthPhone(newUser.phone)) === true) {
         if (checkValidationEmail(newUser.email) === true) {
-            const og = makeOG(newUser.prefer);
+            const og = await makeOG(newUser.prefer);
+            console.log(og);
             const securePersonal = secure(newUser.personal);
             const user = new UserCollection({
                 name: newUser.name,

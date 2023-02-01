@@ -14,7 +14,10 @@ export function checkValidationEmail(email) {
 }
 
 function getWelcomeTemplate({ name, personal, prefer, phone }) {
-    const age = personal.substr(0, 2);
+    const date = new Date();
+    const age = (date.getFullYear() - parseInt(personal.substr(0, 2)) + 1)
+        .toString()
+        .substr(2, 2);
     return `
         <html>
             <body>
