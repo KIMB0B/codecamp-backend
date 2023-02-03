@@ -1,11 +1,7 @@
 paths:
-    users/:
+    /users:
         get:
             summary: 사용자 목록 가져오기
-            parameters:
-                - in: query
-                  name: number
-                  type: int
             responses:
                 200:
                     description: 성공
@@ -16,8 +12,8 @@ paths:
                                 items:
                                     properties:
                                         _id:
-                                            type: string
-                                            example: aaa
+                                            type: ObjectId
+                                            example: 63da122bbae0ac2dda1487cd
                                         name:
                                             type: string
                                             example: 홍길동
@@ -41,6 +37,46 @@ paths:
                                             example:
                                                 {
                                                     "title": "네이버",
-                                                    "description": "설명",
-                                                    "image": "이미지",
+                                                    "description": "네이버 메인에서 다양한 정보와 유용한 컨텐츠를 만나 보세요",
+                                                    "image": "https://s.pstatic.net/static/www/mobile/edit/2016/0705/mobile_212852414260.png",
                                                 }
+        post:
+            summary: 사용자 신규 가입
+            description: "[/token/phone]의 post와 patch를 사용하여 인증이 된 전화번호를 이용해서만 신규 가입이 가능합니다."
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                newUser:
+                                    type: object
+                                    properties:
+                                        name:
+                                            type: string
+                                        email:
+                                            type: string
+                                        personal:
+                                            type: string
+                                        prefer:
+                                            type: string
+                                        pwd:
+                                            type: string
+                                        phone:
+                                            type: string
+                                    example:
+                                        {
+                                            name: 홍길동,
+                                            email: honggildong@naver.com,
+                                            personal: 123456-2345678,
+                                            prefer: https://naver.com,
+                                            pwd: honggildong1!,
+                                            phone: "01015771577",
+                                        }
+            responses:
+                200:
+                    description: 성공
+                    content:
+                        text/plain:
+                            type: ObjectId
+                            example: 63da122bbae0ac2dda1487cd

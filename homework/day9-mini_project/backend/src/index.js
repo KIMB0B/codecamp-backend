@@ -24,8 +24,8 @@ const in_port = 3000;
 const out_port = 4000;
 const app = express();
 app.use(express.json());
-app.use(cors());
 app.use("/api-docs", SwaggerUi.serve, SwaggerUi.setup(swaggerJSDoc(options)));
+app.use(cors());
 
 app.listen(in_port, () => {
     console.log(
@@ -42,7 +42,6 @@ app.post("/users", async (req, res) => {
     if ((await isAuthPhone(newUser.phone)) === true) {
         if (checkValidationEmail(newUser.email) === true) {
             const og = await makeOG(newUser.prefer);
-            console.log(og);
             const securePersonal = secure(newUser.personal);
             const user = new UserCollection({
                 name: newUser.name,
