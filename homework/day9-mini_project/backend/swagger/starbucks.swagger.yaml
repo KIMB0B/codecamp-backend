@@ -1,0 +1,31 @@
+paths:
+  /starbucks:
+    get:
+      summary: 크롤링한 스타벅스 메뉴(이름, 이미지) 가져오기
+      tags: ["메뉴"]
+      responses:
+        200:
+          content:
+           application/json:
+            type: array
+            schema:
+              items:
+                properties:
+                  _id:
+                    type: ObjectId
+                    example: 63da16927642753a7da35789
+                  name:
+                    type: string
+                    example: 나이트로 바닐라 크림
+                  img:
+                    type: string
+                    example: https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002487]_20210426091745467.jpg
+                  __v:
+                    type: integer
+                    example: 0
+        422:
+          description: 오류<br>사용자 DB 접속 오류
+          content:
+            text/plain:
+              type: string
+              example: NotConnectedDB

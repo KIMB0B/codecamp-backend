@@ -34,7 +34,11 @@ app.listen(in_port, () => {
 });
 
 app.get("/users", async (req, res) => {
-    res.send(await UserCollection.find());
+    try {
+        res.send(await UserCollection.find());
+    } catch {
+        res.status(422).send("NotConnectedDB");
+    }
 });
 
 app.post("/users", async (req, res) => {
@@ -59,7 +63,7 @@ app.post("/users", async (req, res) => {
             );
             res.send(user._id);
         } else {
-            res.status(422).send("NotValidationEmail");
+            res.status(423).send("NotValidationEmail");
         }
     } else {
         res.status(422).send("NotAuthPhone");
@@ -67,7 +71,7 @@ app.post("/users", async (req, res) => {
 });
 
 app.post("/tokens/phone", async (req, res) => {
-    const phoneArray = req.body.phone;
+    const phoneArray = req.body.phone.split("-");
     const tokenLength = req.body.tokenLen;
     const phone = phoneArray[0] + phoneArray[1] + phoneArray[2];
 
@@ -77,18 +81,18 @@ app.post("/tokens/phone", async (req, res) => {
         if (token !== false) {
             if ((await setTokenInDB(phone, token)) === true) {
                 console.log(
-                    `✅: [${phoneArray[0]}-${phoneArray[1]}-${phoneArray[2]}]의 Tokens DB 저장에 성공했습니다.`
+                    `✅: [${req.body.phone}]의 Tokens DB 저장에 성공했습니다.`
                 );
-                sendTokenToSMS(phone, token);
+                //sendTokenToSMS(phone, token);
                 console.log(
-                    `✅: [${phoneArray[0]}-${phoneArray[1]}-${phoneArray[2]}] 번호로 인증번호 '${token}'이 전송되었습니다.`
+                    `✅: [${req.body.phone}] 번호로 인증번호 '${token}'이 전송되었습니다.`
                 );
                 res.send(phone);
             } else {
-                res.status(422).send("NotSavedInTokenDB");
+                res.status(424).send("NotSavedInTokenDB");
             }
         } else {
-            res.status(422).send("NotGoodTokenLength");
+            res.status(423).send("NotGoodTokenLength");
         }
     } else {
         res.status(422).send("NotValidationPhone");
@@ -111,5 +115,9 @@ app.patch("/tokens/phone", async (req, res) => {
 });
 
 app.get("/starbucks", async (req, res) => {
-    res.send(await StarbucksCollection.find());
+    try {
+        res.send(await StarbucksCollection.find());
+    } catch {
+        res.status(422).send("NotConnectedDB");
+    }
 });

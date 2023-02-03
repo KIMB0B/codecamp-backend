@@ -1,11 +1,11 @@
 // 휴대폰 인증 토큰 전송하기
 const getValidationNumber = async () => {
-    const phoneNumber = [
-        document.querySelector("#PhoneNumber01").value,
-        document.querySelector("#PhoneNumber02").value,
-        document.querySelector("#PhoneNumber03").value,
-    ];
-
+    const phoneNumber =
+        document.querySelector("#PhoneNumber01").value +
+        "-" +
+        document.querySelector("#PhoneNumber02").value +
+        "-" +
+        document.querySelector("#PhoneNumber03").value;
     axios
         .post("http://localhost:4000/tokens/phone", {
             phone: phoneNumber,
