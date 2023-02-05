@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+    backend:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 4000:3000
+        volumes:
+            - ./views/:/backend/views/
+            - ./models/:/backend/models/
+            - ./controllers/:/backend/controllers/
+            - ./swagger/:/backend/swagger/
+            - ./index.js/:/backend/index.js
+            - ./.env:/backend/.env
+
+    database:
+        image: mongo:5
+        ports:
+            - 27017:27017

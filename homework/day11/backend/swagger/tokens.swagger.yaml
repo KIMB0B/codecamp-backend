@@ -1,0 +1,83 @@
+paths:
+  /tokens/phone:
+    post:
+      summary: 전화번호 본인인증 토큰번호 발송
+      tags: ["휴대폰 토큰", "회원가입"]
+      requestBody:
+        content:
+         application/json:
+          schema:
+            type: object
+            properties:
+              phone:
+                type: string
+              tokenLen:
+                type: integer
+            example:
+              {
+                phone: "010-1234-2345",
+                tokenLen: 6
+              }
+      responses:
+        200:
+          description: 성공
+          content:
+            text/plain:
+              type: string
+              example: "01012342345"
+        422:
+          description: 오류<br>휴대번호 형식이 맞지 않는 형태로 토큰 생성 시도<br>(하이픈'-'을 포함한 값 필요)
+          content:
+           text/plain:
+            type: string
+            example: NotValidationPhone
+        423:
+          description: 오류<br>토큰의 길이(tokenLen)를 1 ~ 9 사이의 정수로 지정하지 않은 상태로 토큰 생성 시도
+          content:
+           text/plain:
+            type: string
+            example: NotGoodTokenLength
+        424:
+          description: 오류<br>토큰 DB에 데이터 저장 실패
+          content:
+           text/plain:
+            type: string
+            example: NotSavedInTokenDB
+    patch:
+      summary: 전화번호 본인인증 토큰 확인
+      tags: ["휴대폰 토큰", "회원가입"]
+      description: 본인 인증 완료시 isAuth값을 True로 변경
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                token:
+                 type: string
+              example:
+                {
+                  phone: "01012342345",
+                  token: "369369"
+                }
+      responses:
+        200:
+          description: 성공
+          content:
+            text/plain:
+              type: string
+              example: "01012342345"
+        422:
+          description: 오류<br>토큰 DB에 없는 전화번호로 본인 인증 시도<br>(해당 번호로 정상적인 POST를 진행하지 않았거나, DB 오류)
+          content:
+           text/plain:
+            type: string
+            example: NotPhoneInDB
+        423:
+          description: 오류<br>올바르지 않은 토큰값으로 본인 인증 시도
+          content:
+           text/plain:
+            type: string
+            example: NotSameToken
