@@ -36,7 +36,7 @@ export class UserController {
                 const securePersonal = this.userService.secure(
                     newUser.personal
                 );
-                const user = new UserModel({
+                const user = new this.userModel({
                     name: newUser.name,
                     email: newUser.email,
                     personal: securePersonal,

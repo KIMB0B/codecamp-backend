@@ -20,15 +20,20 @@ import { UserController } from "./controllers/user.controller.js";
 import { PhoneController } from "./controllers/phone.controller.js";
 import { MenuController } from "./controllers/menu.controller.js";
 
+// Service 선언 (중요! 이거 까먹어서 고생했음...)
+const userService = new UserService();
+const phoneService = new PhoneService();
+const emailService = new EmailServie();
+
 // Controller 선언
 const userController = new UserController(
     UserCollection,
     TokenCollection,
-    UserService,
-    PhoneService,
-    EmailServie
+    userService,
+    phoneService,
+    emailService
 );
-const phoneController = new PhoneController(TokenCollection, PhoneService);
+const phoneController = new PhoneController(TokenCollection, phoneService);
 const menuController = new MenuController(StarbucksCollection);
 
 // Mongoose DB 설정
