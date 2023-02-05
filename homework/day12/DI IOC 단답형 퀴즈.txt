@@ -1,0 +1,5 @@
+1. Dependency Injection
+2. 아니요
+3. Inversion of Control
+4. 네
+5. 네

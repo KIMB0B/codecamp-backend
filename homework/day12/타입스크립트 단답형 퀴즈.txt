@@ -1,0 +1,22 @@
+1)
+  a. string
+  b. number
+  c. boolean
+2)
+  a. string
+  b. number
+  c. (string | number)
+  d. (boolean | string)
+3)
+  a. 
+    interface IBoardInput {
+      writer: string
+      title: string
+      contents: string
+    }
+  b. 
+    interface IBoardInput {
+      writer: string
+      title?: string
+      contents: string
+    }
