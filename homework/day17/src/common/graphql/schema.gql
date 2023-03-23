@@ -1,0 +1,39 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  ID: String!
+  NAME: String!
+}
+
+type Product {
+  ID: String!
+  KOR_NAME: String!
+  ENG_NAME: String!
+  EXPLANATION: String!
+}
+
+type Query {
+  fetchCategories: [Category!]!
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+}
+
+type Mutation {
+  createCategory(name: String!): Category!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+}
+
+input CreateProductInput {
+  KOR_NAME: String!
+  ENG_NAME: String!
+  EXPLANATION: String!
+}
+
+input UpdateProductInput {
+  KOR_NAME: String
+  ENG_NAME: String
+  EXPLANATION: String
+}
