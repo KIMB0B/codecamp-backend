@@ -1,0 +1,142 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  ID: String!
+  NAME: String!
+}
+
+type State {
+  ID: String!
+  NAME: String!
+}
+
+type Product {
+  ID: String!
+  KOR_NAME: String!
+  ENG_NAME: String!
+  EXPLANATION: String!
+  CATEGORY: Category
+  STATES: [State!]!
+}
+
+type Product_State {
+  ID: String!
+  PRODUCT: Product!
+  STATE: State!
+}
+
+type Detail {
+  ID: String!
+  PRODUCTSTATE: Product_State!
+  SERVING_SIZE: Float
+  CAFFEIN: Float
+  CALORIE: Float
+  NATRIUM: Float
+  SUGARS: Float
+  SATURATED_FAT: Float
+  PROTEIN: Float
+  PRICE: Int!
+}
+
+type Image {
+  ID: String!
+  URL: String!
+  PRODUCTSTATE: Product_State!
+}
+
+type Query {
+  fetchCategories: [Category!]!
+  fetchCategory(categoryId: String!): Category!
+  fetchCategoryByName(name: String!): Category!
+  fetchCategoryWithDeleted: [Category!]!
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+  fetchProductsWithDeleted: [Product!]!
+  fetchStates: [State!]!
+  fetchState(stateId: String!): State!
+  fetchStateByName(name: String!): State!
+  fetchStatesWithDeleted: [State!]!
+  fetchImages: [Image!]!
+  fetchImage(imageId: String!): Image!
+  fetchImagesByProductId(productId: String!): [Image!]!
+  fetchImagesByStateId(stateId: String!): [Image!]!
+  fetchImagesByProductStateId(productId: String!, stateId: String!): [Image!]!
+  fetchImagesWithDeleted: [Image!]!
+  fetchDeatils: [Detail!]!
+  fetchDetail(detailId: String!): Detail!
+  fetchDetailsByProductId(productId: String!): [Detail!]!
+  fetchDetailsByStateId(stateId: String!): [Detail!]!
+  fetchDetailByProductStateId(productId: String!, stateId: String!): Detail!
+  fetchDetailsWithDeleted: [Detail!]!
+}
+
+type Mutation {
+  createCategory(name: String!): Category!
+  updateCategory(categoryId: String!, name: String!): Category!
+  deleteCategory(categoryId: String!): Boolean!
+  restoreCategory(categoryId: String!): Boolean!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
+  restoreProduct(productId: String!): Boolean!
+  createState(name: String!): State!
+  updateState(stateId: String!, name: String!): State!
+  deleteState(stateId: String!): Boolean!
+  restoreState(stateId: String!): Boolean!
+  createImage(productId: String!, stateId: String!, createImageInput: CreateImageInput!): Image!
+  updateImage(imageId: String!, updateImageInput: UpdateImageInput!): Image!
+  imageDelete(imageId: String!): Boolean!
+  imageRestore(imageId: String!): Boolean!
+  createDetail(productId: String!, stateId: String!, createDetailInput: CreateDetailInput!): Detail!
+  updateDetail(deatilId: String!, updateDetailInput: UpdateDetailInput!): Detail!
+  detailDelete(detailId: String!): Boolean!
+  detailRestore(detailId: String!): Boolean!
+}
+
+input CreateProductInput {
+  KOR_NAME: String!
+  ENG_NAME: String!
+  EXPLANATION: String!
+  CATEGORYID: String!
+  STATES: [String!]!
+}
+
+input UpdateProductInput {
+  KOR_NAME: String
+  ENG_NAME: String
+  EXPLANATION: String
+  CATEGORYID: String
+  STATES: [String!]
+}
+
+input CreateImageInput {
+  URL: String!
+}
+
+input UpdateImageInput {
+  URL: String
+}
+
+input CreateDetailInput {
+  SERVING_SIZE: Float
+  CAFFEIN: Float
+  CALORIE: Float
+  NATRIUM: Float
+  SUGARS: Float
+  SATURATED_FAT: Float
+  PROTEIN: Float
+  PRICE: Int!
+}
+
+input UpdateDetailInput {
+  SERVING_SIZE: Float
+  CAFFEIN: Float
+  CALORIE: Float
+  NATRIUM: Float
+  SUGARS: Float
+  SATURATED_FAT: Float
+  PROTEIN: Float
+  PRICE: Int
+}
