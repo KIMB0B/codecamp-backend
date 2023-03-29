@@ -6,8 +6,6 @@ import {
   Column,
   DeleteDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -36,10 +34,10 @@ export class Product {
   @Field(() => Category, { nullable: true })
   CATEGORY: Category;
 
-  @ManyToMany(() => State)
-  @JoinTable()
-  @Field(() => [State])
-  STATES: State[];
+  @Field(() => [State], { nullable: true })
+  get STATES(): State[] {
+    return this.PRODUCTSTATE.map((productState) => productState.STATE);
+  }
 
   @DeleteDateColumn()
   DELETEAT: Date;

@@ -20,7 +20,7 @@ export class Image {
   URL: string;
 
   @ManyToOne(() => Product_State)
-  @Field(() => Product_State)
+  @Field(() => Product_State, { nullable: true })
   PRODUCTSTATE: Product_State;
 
   @DeleteDateColumn()

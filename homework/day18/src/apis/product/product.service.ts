@@ -22,23 +22,25 @@ export class ProductService {
     private readonly productStateRepository: Repository<Product_State>,
   ) {}
 
+  productRelations = ['CATEGORY', 'PRODUCTSTATE', 'PRODUCTSTATE.STATE'];
+
   async findAll() {
     return await this.productRepository.find({
-      relations: ['CATEGORY', 'PRODUCTSTATE', 'STATES'],
+      relations: this.productRelations,
     });
   }
 
   async findOne({ productId }) {
     return await this.productRepository.findOne({
       where: { ID: productId },
-      relations: ['CATEGORY', 'PRODUCTSTATE', 'STATES'],
+      relations: this.productRelations,
     });
   }
 
   async findAllWithDeleted() {
     return await this.productRepository.find({
       withDeleted: true,
-      relations: ['CATEGORY', 'PRODUCTSTATE', 'STATES'],
+      relations: this.productRelations,
     });
   }
 
@@ -101,22 +103,16 @@ export class ProductService {
           });
         }
       }
-
-      await this.productRepository.save({
-        ID: productId,
-        ...updateProductInput,
-        STATES: targetStates,
-      });
-    } else {
-      await this.productRepository.save({
-        ID: productId,
-        ...updateProductInput,
-      });
     }
+
+    await this.productRepository.save({
+      ID: productId,
+      ...updateProductInput,
+    });
 
     return this.productRepository.findOne({
       where: { ID: productId },
-      relations: ['CATEGORY', 'PRODUCTSTATE', 'STATES'],
+      relations: this.productRelations,
     });
   }
 

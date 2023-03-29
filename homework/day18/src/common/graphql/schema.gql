@@ -18,7 +18,7 @@ type Product {
   ENG_NAME: String!
   EXPLANATION: String!
   CATEGORY: Category
-  STATES: [State!]!
+  STATES: [State!]
 }
 
 type Product_State {
@@ -29,7 +29,7 @@ type Product_State {
 
 type Detail {
   ID: String!
-  PRODUCTSTATE: Product_State!
+  PRODUCTSTATE: Product_State
   SERVING_SIZE: Float
   CAFFEIN: Float
   CALORIE: Float
@@ -43,7 +43,7 @@ type Detail {
 type Image {
   ID: String!
   URL: String!
-  PRODUCTSTATE: Product_State!
+  PRODUCTSTATE: Product_State
 }
 
 type Query {

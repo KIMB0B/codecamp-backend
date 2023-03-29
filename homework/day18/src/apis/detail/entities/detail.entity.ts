@@ -18,7 +18,7 @@ export class Detail {
 
   @OneToOne(() => Product_State)
   @JoinColumn()
-  @Field(() => Product_State)
+  @Field(() => Product_State, { nullable: true })
   PRODUCTSTATE: Product_State;
 
   @Column('double', { nullable: true })
