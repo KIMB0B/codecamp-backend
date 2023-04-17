@@ -8,6 +8,8 @@ import { UserService } from '../user/user.service';
 import { JwtRefreshStrategy } from 'src/common/auth/jwt-refresh.strategy';
 import { GoogleStrategy } from 'src/common/auth/social-google.strategy';
 import { AuthController } from './auth.controller';
+import { NaverStrategy } from 'src/common/auth/social-naver.strategy';
+import { KakaoStrategy } from 'src/common/auth/social-kakao.strategy';
 
 @Module({
   imports: [JwtModule.register({}), TypeOrmModule.forFeature([User])],
@@ -17,6 +19,8 @@ import { AuthController } from './auth.controller';
     UserService,
     JwtRefreshStrategy,
     GoogleStrategy,
+    NaverStrategy,
+    KakaoStrategy,
   ],
   controllers: [AuthController],
 })

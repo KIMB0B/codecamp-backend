@@ -22,9 +22,7 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-  @Get('login/google')
-  @UseGuards(AuthGuard('google'))
-  async loginGoogle(@Req() req: Request & IOAuthUser, @Res() res: Response) {
+  async socialLogin(req: Request & IOAuthUser, res: Response) {
     // 1. 가입확인
     let user = await this.userService.findOneWithEmail({
       EMAIL: req.user.EMAIL,
@@ -43,5 +41,23 @@ export class AuthController {
     res.redirect(
       'http://localhost:5500/homework/main-project/frontend/login/index.html',
     );
+  }
+
+  @Get('login/google')
+  @UseGuards(AuthGuard('google'))
+  async loginGoogle(@Req() req: Request & IOAuthUser, @Res() res: Response) {
+    this.socialLogin(req, res);
+  }
+
+  @Get('login/naver')
+  @UseGuards(AuthGuard('naver'))
+  async loginNaver(@Req() req: Request & IOAuthUser, @Res() res: Response) {
+    this.socialLogin(req, res);
+  }
+
+  @Get('login/kakao')
+  @UseGuards(AuthGuard('kakao'))
+  async loginKakao(@Req() req: Request & IOAuthUser, @Res() res: Response) {
+    this.socialLogin(req, res);
   }
 }
